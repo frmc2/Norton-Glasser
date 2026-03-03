@@ -8,7 +8,7 @@
  *b = birl;
  }
 
-int main()
+void main()
  {
  float *a, *b, c=0, d=0;
  printf("valores a serem trocados:\n a:");
