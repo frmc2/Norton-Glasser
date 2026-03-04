@@ -1,0 +1,11 @@
+1. O que e um Tipo Abstrato de Dados (TAD) e qual a caracterıstica fundamental na sua
+utilização?
+2. Quais as vantagens de se programar com TADs?
+3. Crie um TAD que implemente o controle de uma conta bancaria, implemente funções para inicializar, deposito, sacar e imprimir o saldo.
+4. Utilizando a alocação dinamica de memoria crie uma função para criar uma nova conta bancaria
+
+1- É um tipo de dado criado pelo programador, ele é feito por cima do tipos nativos.
+2- Eles são mais diretos e específicos para representar informações.
+3-
+
+4-
