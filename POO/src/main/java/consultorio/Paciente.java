@@ -9,4 +9,6 @@ public class Paciente{
 
     void cadastrar(){}
     void consultar(){}
+
+    public
 }
