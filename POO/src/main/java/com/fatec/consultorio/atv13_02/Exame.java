@@ -1,4 +1,4 @@
-package consultorio;
+package com.fatec.consultorio.atv13_02;
 
 public class Exame {
     String consulta;
@@ -7,5 +7,7 @@ public class Exame {
 
     void solicitar(){}
     void consultar(){}
+
+    public void mostrar(){}
 }
     
