@@ -1,1 +1,91 @@
+package com.fatec.consultorio.atv15_05;
 
+import com.fatec.consultorio.atv15_05.Recepcionista;
+import com.fatec.consultorio.atv15_05.ConnectionFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class RecepcionistaDAO {
+    private Connection conexao;
+
+    public RecepcionistaDAO() throws Exception {
+        conexao = ConnectionFactory.getConnection();
+        criarTabela();
+    }
+
+    private void criarTabela() throws Exception {
+        String sql = """
+            CREATE TABLE IF NOT EXISTS recepcionista (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                nome VARCHAR(100),
+                telefone VARCHAR(20),
+                senha VARCHAR(100),
+                cpf VARCHAR(20)
+            )
+        """;
+
+        Statement stmt = conexao.createStatement();
+        stmt.execute(sql);
+    }
+
+    public void inserir(Recepcionista r) throws Exception {
+        String sql = "INSERT INTO recepcionista(nome, telefone, senha, cpf) VALUES (?, ?, ?, ?)";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+
+        stmt.setString(1, r.getNome());
+        stmt.setString(2, r.getTelefone());
+        stmt.setString(3, r.getSenha());
+        stmt.setString(4, r.getCpf());
+        stmt.execute();
+
+        System.out.println("Recepcionista cadastrada!");
+    }
+
+    public List<Recepcionista> listar() throws Exception {
+        String sql = "SELECT * FROM recepcionista";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        List<Recepcionista> lista = new ArrayList<>();
+
+        while (rs.next()) {
+            Recepcionista r = new Recepcionista();
+
+            r.setCpf(rs.getString("cpf"));
+            r.setNome(rs.getString("nome"));
+            r.setTelefone(rs.getString("telefone"));
+            r.setSenha(rs.getString("senha"));
+            lista.add(r);
+        }
+
+        return lista;
+    }
+
+    public void atualizar(Recepcionista r, int id) throws Exception {
+        String sql = "UPDATE recepcionista SET nome=?, telefone=?, senha=?, cpf=? WHERE id=?";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+
+        stmt.setString(1, r.getNome());
+        stmt.setString(2, r.getTelefone());
+        stmt.setString(3, r.getSenha());
+        stmt.setString(4, r.getCpf());
+        stmt.setInt(5, id);
+        stmt.executeUpdate();
+
+        System.out.println("Recepcionista atualizada!");
+    }
+
+    public void deletar(int id) throws Exception {
+        String sql = "DELETE FROM recepcionista WHERE id=?";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+
+        stmt.setInt(1, id);
+        stmt.executeUpdate();
+
+        System.out.println("Recepcionista removida!");
+    }
+}
